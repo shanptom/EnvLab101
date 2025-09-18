@@ -54,12 +54,13 @@ ui <- semanticPage(
         pointer-events: none;
       }
 
-      .beaker-1 { top: 10%; left: 80%; width: 120px; height: 120px; }
-      .test-tube-1 { top: 60%; right: 5%; width: 100px; height: 100px; }
+      .beaker-1 { top: 20%; left: 85%; width: 120px; height: 120px; }
+      .test-tube-1 { top: 20%; right: 65%; width: 100px; height: 100px; }
       .flask-1 { bottom: 20%; left: 10%; width: 80px; height: 80px; }
       .molecule-1 { top: 30%; left: 5%; width: 90px; height: 90px; }
-      .test-tube-1 { bottom: 50%; right: 15%; width: 70px; height: 70px; }
-      .atom-1 { top: 70%; left: 75%; width: 85px; height: 85px; }
+      .test-tube-1 { top: 5%; right: 5%; width: 70px; height: 70px; }
+      
+      
 
       /* Theme Toggle Button */
       .theme-toggle {
@@ -472,16 +473,7 @@ ui <- semanticPage(
         <circle cx="65" cy="52" r="2.5" fill="white" opacity="0.6"/>
       </svg>')
     ),
-    tags$div(class = "bg-decoration microscope-1",
-             HTML('<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <rect x="20" y="80" width="60" height="10" fill="currentColor"/>
-        <rect x="45" y="30" width="10" height="50" fill="currentColor"/>
-        <circle cx="50" cy="25" r="15" fill="currentColor"/>
-        <circle cx="50" cy="25" r="8" fill="white" opacity="0.8"/>
-        <rect x="35" y="50" width="30" height="8" fill="currentColor"/>
-        <circle cx="30" cy="54" r="4" fill="currentColor"/>
-      </svg>')
-    ),
+
     tags$div(class = "bg-decoration flask-1",
              HTML('<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
         <path d="M35 10 L35 35 L15 70 L85 70 L65 35 L65 10 Z" fill="currentColor"/>
@@ -510,14 +502,7 @@ ui <- semanticPage(
         <circle cx="50" cy="45" r="2" fill="white" opacity="0.8"/>
       </svg>')
     ),
-    tags$div(class = "bg-decoration atom-1",
-             HTML('<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="50" cy="50" r="6" fill="currentColor"/>
-        <ellipse cx="50" cy="50" rx="30" ry="15" fill="none" stroke="currentColor" stroke-width="2"/>
-        <ellipse cx="50" cy="50" rx="15" ry="30" fill="none" stroke="currentColor" stroke-width="2"/>
-        <ellipse cx="50" cy="50" rx="35" ry="8" fill="none" stroke="currentColor" stroke-width="2" transform="rotate(60 50 50)"/>
-      </svg>')
-    ),
+
 
     div(id = "main-content", class = "light-theme",
         # Theme toggle button
@@ -953,7 +938,7 @@ server <- function(input, output, session) {
       geom_errorbar(
         aes(ymin = Mean - Std_Error, ymax = Mean + Std_Error),
         width = 0.25,
-        color = colors$primary[5],  # Complementary color for error bars
+        color = colors$grid_color,  # Theme-aware color for better visibility
         size = 1.2,
         alpha = 0.9
       ) +
