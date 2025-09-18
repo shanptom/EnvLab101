@@ -5,7 +5,7 @@ account: shanptom
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 15488851
-bundleId: 10919816
+bundleId: 10921287
 url: https://shanptom.shinyapps.io/EnvLab101/
 version: 1
 asMultiple: FALSE

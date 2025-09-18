@@ -30,6 +30,18 @@ ui <- semanticPage(
       html {
         margin: 0 !important;
         padding: 0 !important;
+        height: 100%;
+      }
+
+      /* Apply background to body to eliminate white space */
+      body.light-theme {
+        background: linear-gradient(135deg, #ff9068 0%, #fd746c 50%, #ff4757 100%);
+        transition: all 0.5s ease;
+      }
+
+      body.dark-theme {
+        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+        transition: all 0.5s ease;
       }
 
       /* Background SVG Decorations */
@@ -138,12 +150,17 @@ ui <- semanticPage(
       }
 
       .light-theme .ui.input > input,
-      .light-theme .ui.form textarea {
+      .light-theme .ui.form textarea,
+      .light-theme input,
+      .light-theme textarea,
+      .light-theme .ui.dropdown {
         border: 2px solid #ffb347 !important;
         border-radius: 15px !important;
         padding: 6px 16px !important;
         font-size: 14px;
         transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.9) !important;
+        color: #333 !important;
         height: 30px !important;
       }
 
@@ -433,8 +450,14 @@ ui <- semanticPage(
   tags$head(
     tags$link(rel = "stylesheet", href = "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"),
     tags$script(HTML("
+      // Initialize body with light theme on page load
+      document.addEventListener('DOMContentLoaded', function() {
+        document.body.className = 'light-theme';
+      });
+
       Shiny.addCustomMessageHandler('changeTheme', function(message) {
         document.getElementById('main-content').className = message.theme;
+        document.body.className = message.theme;
         document.getElementById('themeToggle').innerHTML = message.buttonText;
       });
     "))
@@ -503,48 +526,54 @@ ui <- semanticPage(
       
       div(class = "ui container",
           h1("Environmental Lab Data Analysis", class = "ui center aligned header"),
-          
+
           tabset(
             # ---- Tab 1: Data entry + Stats ----
             tabs = list(
               list(
-                menu = "📊 Statistics",
+                menu = "∑ Statistics",
                 content = div(
                   class = "ui grid",
                   div(
-                    class = "six wide column",
+                    class = "four wide column",
                     segment(
                       h3("🔢 Input Your Lab Data", class = "ui header"),
                       tags$div(style = "background: rgba(116, 185, 255, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px;",
-                               tags$p("📝 Enter your environmental measurements below. Separate values with commas or spaces.", 
+                               tags$p("📝 Enter your environmental measurements below. Separate values with commas or spaces.",
                                       style = "margin: 0; color: #74b9ff; font-weight: 500;")
                       ),
                       div(class = "ui form",
                           # Dynamic group inputs will be rendered here
                           uiOutput("dynamicGroups"),
-                          div(class = "field", style = "margin-top: 18px; padding-top: 12px; border-top: 1px solid rgba(255, 255, 255, 0.1);",
-                              action_button("addGroup", "➕ Add Group", class = "ui secondary button", style = "margin-right: 10px;"),
-                              action_button("calculate", "🧮 Calculate Statistics", class = "ui primary button")
+                          div(style = "margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(255, 255, 255, 0.1);",
+                              div(class = "ui grid",
+                                  div(class = "eight wide column",
+                                      action_button("addGroup", "Add Group", class = "ui secondary button fluid")
+                                  ),
+                                  div(class = "eight wide column",
+                                      action_button("calculate", "Calculate Statistics", class = "ui primary button fluid")
+                                  )
+                              )
                           )
                       )
                     )
                   ),
                   div(
-                    class = "six wide column",
+                    class = "twelve wide column",
                     segment(
                       h3("📈 Statistical Results", class = "ui header"),
                       tags$div(style = "background: rgba(116, 185, 255, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px;",
-                               tags$p("🎯 Your calculated statistics will appear here. These values help you understand your data's central tendency and variability!", 
+                               tags$p("🎯 Your calculated statistics will appear here. These values help you understand your data's central tendency and variability!",
                                       style = "margin: 0; color: #74b9ff; font-weight: 500;")
                       ),
-                      div(
+                      div(style = "min-height: 500px;",
                         uiOutput("statsTableWithTooltips")
                       )
                     )
                   )
                 )
               ),
-              
+
               # ---- Tab 2: Comparison Bar Plot ----
               list(
                 menu = "📊 Group Comparison",
@@ -555,7 +584,7 @@ ui <- semanticPage(
                     segment(
                       h3("🎨 Plot Customization", class = "ui header"),
                       tags$div(style = "background: rgba(116, 185, 255, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px;",
-                               tags$p("🖼️ Customize your comparison plot to make it perfect for your lab report!", 
+                               tags$p("🖼️ Customize your comparison plot to make it perfect for your lab report!",
                                       style = "margin: 0; color: #74b9ff; font-weight: 500;")
                       ),
                       div(class = "ui form",
@@ -579,7 +608,7 @@ ui <- semanticPage(
                     segment(
                       h3("📊 Comparison Bar Plot with Error Bars", class = "ui header"),
                       tags$div(style = "background: rgba(116, 185, 255, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px;",
-                               tags$p("📊 This plot shows the mean values for each group with error bars representing standard error. Error bars help you see the uncertainty in your measurements!", 
+                               tags$p("📊 This plot shows the mean values for each group with error bars representing standard error. Error bars help you see the uncertainty in your measurements!",
                                       style = "margin: 0; color: #74b9ff; font-weight: 500;")
                       ),
                       plotOutput("barPlot", height = "500px")
@@ -587,7 +616,7 @@ ui <- semanticPage(
                   )
                 )
               ),
-              
+
               # ---- Tab 3: Individual Group Plot ----
               list(
                 menu = "🔍 Individual Analysis",
@@ -598,7 +627,7 @@ ui <- semanticPage(
                     segment(
                       h3("🎯 Group Selection", class = "ui header"),
                       tags$div(style = "background: rgba(116, 185, 255, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px;",
-                               tags$p("🔍 Explore individual data points from any group to understand the distribution of your measurements!", 
+                               tags$p("🔍 Explore individual data points from any group to understand the distribution of your measurements!",
                                       style = "margin: 0; color: #74b9ff; font-weight: 500;")
                       ),
                       div(class = "ui form",
@@ -620,7 +649,7 @@ ui <- semanticPage(
                           ),
                           div(class = "field",
                               tags$label("Visualization Type:"),
-                              dropdown_input("plotType", 
+                              dropdown_input("plotType",
                                              choices = list(
                                                "📊 Bar Chart" = "bar",
                                                "📈 Line Plot" = "line",
@@ -637,7 +666,7 @@ ui <- semanticPage(
                     segment(
                       h3("📊 Individual Data Visualization", class = "ui header"),
                       tags$div(style = "background: rgba(116, 185, 255, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px;",
-                               tags$p("This visualization shows each individual measurement from your selected group. Look for patterns, outliers, or trends in your data!", 
+                               tags$p("This visualization shows each individual measurement from your selected group. Look for patterns, outliers, or trends in your data!",
                                       style = "margin: 0; color: #74b9ff; font-weight: 500;")
                       ),
                       plotOutput("individualPlot", height = "500px")
@@ -647,6 +676,16 @@ ui <- semanticPage(
               )
             )
           )
+      ),
+
+      # Footer - Simple text line
+      div(style = "text-align: center; margin-top: 20px; padding: 10px 0; font-size: 14px; color: rgba(255, 255, 255, 0.8);",
+          "Questions? Contact ",
+          tags$a(href = "https://shanptom.github.io",
+                 target = "_blank",
+                 "Developer.",
+                 style = "color: #74b9ff; text-decoration: none; font-weight: 500;")
+          
       )
   )
 )
@@ -722,12 +761,14 @@ server <- function(input, output, session) {
         ),
         div(class = "field",
             tags$label(paste("Group", i, "measurements:")),
-            textAreaInput(
-              paste0("group", i),
-              label = NULL,
-              value = if(!is.null(group_val)) group_val else "",
-              placeholder = "e.g., 7.2, 7.1, 7.3, 7.0, 7.4",
-              width = "100%"
+            div(style = "height: 60px; overflow-y: auto;",
+                textAreaInput(
+                  paste0("group", i),
+                  label = NULL,
+                  value = if(!is.null(group_val)) group_val else "",
+                  placeholder = "e.g., 7.2, 7.1, 7.3, 7.0, 7.4",
+                  width = "100%"
+                )
             )
         )
       )
@@ -916,7 +957,7 @@ server <- function(input, output, session) {
       geom_errorbar(
         aes(ymin = `📈 Mean` - `📏 Std_Error`, ymax = `📈 Mean` + `📏 Std_Error`),
         width = 0.25,
-        color = colors$primary[4],  # Use theme-appropriate color for visibility
+        color = colors$primary[5],  # Complementary color for error bars
         size = 1.2,
         alpha = 0.9
       ) +
@@ -937,7 +978,7 @@ server <- function(input, output, session) {
         plot.caption = element_text(size = 10, color = colors$text, face = "italic"),
         axis.title = element_text(size = 14, color = colors$text, face = "bold"),
         axis.text = element_text(size = 12, color = colors$text),
-        axis.text.x = element_text(angle = 45, hjust = 1, size = 11),
+        axis.text.x = element_text(angle = 0, hjust = 1, size = 15),
         axis.line = element_line(color = colors$text, size = 1.2),
         axis.ticks = element_line(color = colors$text, size = 1),
         axis.ticks.length = unit(0.3, "cm"),
@@ -949,15 +990,8 @@ server <- function(input, output, session) {
         plot.margin = margin(20, 20, 20, 20)
       ) +
 
-      # Color scheme and value labels
+      # Color scheme
       scale_fill_manual(values = colors$primary) +
-      geom_text(
-        aes(label = paste0(round(`📈 Mean`, 2), "\n(n=", `🔢 N`, ")")),
-        vjust = -1.2,
-        color = colors$text,
-        size = 3.5,
-        fontface = "bold"
-      ) +
 
       # Y-axis starts at zero for educational clarity
       scale_y_continuous(expand = expansion(mult = c(0, 0.15)), limits = c(0, NA))
