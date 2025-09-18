@@ -5,6 +5,8 @@ library(shiny.semantic)
 # ---------- UI SECTION ONLY ----------
 ui <- semanticPage(
   tags$head(
+    title = "EnvLab101",
+    tags$link(rel = "icon", type = "image/png", href = "favicon.png"),
     tags$style(HTML("
       /* Light Theme (Campus Energy) */
       .light-theme {
