@@ -23,6 +23,13 @@ ui <- semanticPage(
         min-height: 100vh;
         position: relative;
         overflow-x: hidden;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      html {
+        margin: 0 !important;
+        padding: 0 !important;
       }
 
       /* Background SVG Decorations */
@@ -157,6 +164,7 @@ ui <- semanticPage(
         color: white !important;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         margin-bottom: 30px !important;
+        margin-top: 5px !important;
       }
 
       .light-theme .field > label {
@@ -288,6 +296,7 @@ ui <- semanticPage(
         color: #f8f9fa !important;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
         margin-bottom: 30px !important;
+        margin-top: 5px !important;
       }
 
       .dark-theme .field > label {
@@ -332,11 +341,7 @@ ui <- semanticPage(
         color: white !important;
       }
 
-      .ui.container {
-        padding: 20px;
-        position: relative;
-        z-index: 2;
-      }
+
 
       /* Tooltip styles */
       .info-tooltip {
@@ -496,11 +501,8 @@ ui <- semanticPage(
       # Theme toggle button
       action_button("themeToggle", "🌙 Dark Mode", class = "theme-toggle"),
       
-      div(class = "ui container fluid",
+      div(class = "ui container",
           h1("Environmental Lab Data Analysis", class = "ui center aligned header"),
-          tags$p("Analyze your environmental measurements with statistical precision!", 
-                 class = "ui center aligned", 
-                 style = "color: white; font-size: 16px; margin-bottom: 30px; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);"),
           
           tabset(
             # ---- Tab 1: Data entry + Stats ----
@@ -528,7 +530,7 @@ ui <- semanticPage(
                     )
                   ),
                   div(
-                    class = "ten wide column",
+                    class = "six wide column",
                     segment(
                       h3("📈 Statistical Results", class = "ui header"),
                       tags$div(style = "background: rgba(116, 185, 255, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px;",
