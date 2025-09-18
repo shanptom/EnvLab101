@@ -496,7 +496,7 @@ ui <- semanticPage(
       # Theme toggle button
       action_button("themeToggle", "🌙 Dark Mode", class = "theme-toggle"),
       
-      div(class = "ui container",
+      div(class = "ui container fluid",
           h1("Environmental Lab Data Analysis", class = "ui center aligned header"),
           tags$p("Analyze your environmental measurements with statistical precision!", 
                  class = "ui center aligned", 
