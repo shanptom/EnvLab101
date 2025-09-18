@@ -358,8 +358,6 @@ ui <- semanticPage(
         color: white !important;
       }
 
-
-
       /* Tooltip styles */
       .info-tooltip {
         display: inline-block;
@@ -437,7 +435,7 @@ ui <- semanticPage(
         .bg-decoration {
           display: none;
         }
-        
+
         .theme-toggle {
           position: relative;
           top: 0;
@@ -445,254 +443,253 @@ ui <- semanticPage(
           margin-bottom: 20px;
         }
       }
-    "))
-  ),
-  tags$head(
-    tags$link(rel = "stylesheet", href = "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"),
-    tags$script(HTML("
-      // Initialize body with light theme on page load
-      document.addEventListener('DOMContentLoaded', function() {
-        document.body.className = 'light-theme';
-      });
+    ")),
+    tags$head(
+      tags$link(rel = "stylesheet", href = "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"),
+      tags$script(HTML("
+        // Initialize body with light theme on page load
+        document.addEventListener('DOMContentLoaded', function() {
+          document.body.className = 'light-theme';
+        });
 
-      Shiny.addCustomMessageHandler('changeTheme', function(message) {
-        document.getElementById('main-content').className = message.theme;
-        document.body.className = message.theme;
-        document.getElementById('themeToggle').innerHTML = message.buttonText;
-      });
-    "))
-  ),
-  
-  # Background decorations
-  tags$div(class = "bg-decoration beaker-1",
-           HTML('<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-      <path d="M30 20 L30 40 L20 70 L80 70 L70 40 L70 20 Z" fill="currentColor" stroke="currentColor" stroke-width="2"/>
-      <rect x="25" y="15" width="50" height="10" fill="currentColor"/>
-      <circle cx="35" cy="55" r="3" fill="white" opacity="0.6"/>
-      <circle cx="50" cy="60" r="2" fill="white" opacity="0.6"/>
-      <circle cx="65" cy="52" r="2.5" fill="white" opacity="0.6"/>
-    </svg>')
-  ),
-  tags$div(class = "bg-decoration microscope-1",
-           HTML('<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-      <rect x="20" y="80" width="60" height="10" fill="currentColor"/>
-      <rect x="45" y="30" width="10" height="50" fill="currentColor"/>
-      <circle cx="50" cy="25" r="15" fill="currentColor"/>
-      <circle cx="50" cy="25" r="8" fill="white" opacity="0.8"/>
-      <rect x="35" y="50" width="30" height="8" fill="currentColor"/>
-      <circle cx="30" cy="54" r="4" fill="currentColor"/>
-    </svg>')
-  ),
-  tags$div(class = "bg-decoration flask-1",
-           HTML('<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-      <path d="M35 10 L35 35 L15 70 L85 70 L65 35 L65 10 Z" fill="currentColor"/>
-      <rect x="30" y="5" width="40" height="10" fill="currentColor"/>
-      <rect x="47" y="0" width="6" height="15" fill="currentColor"/>
-      <path d="M25 50 Q50 45 75 50 Q60 55 50 60 Q40 55 25 50" fill="white" opacity="0.3"/>
-    </svg>')
-  ),
-  tags$div(class = "bg-decoration molecule-1",
-           HTML('<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="30" cy="30" r="8" fill="currentColor"/>
-      <circle cx="70" cy="30" r="8" fill="currentColor"/>
-      <circle cx="50" cy="60" r="8" fill="currentColor"/>
-      <circle cx="30" cy="80" r="8" fill="currentColor"/>
-      <line x1="38" y1="30" x2="62" y2="30" stroke="currentColor" stroke-width="3"/>
-      <line x1="35" y1="37" x2="45" y2="53" stroke="currentColor" stroke-width="3"/>
-      <line x1="65" y1="37" x2="55" y2="53" stroke="currentColor" stroke-width="3"/>
-      <line x1="45" y1="67" x2="35" y2="73" stroke="currentColor" stroke-width="3"/>
-    </svg>')
-  ),
-  tags$div(class = "bg-decoration test-tube-1",
-           HTML('<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-      <rect x="40" y="10" width="20" height="60" rx="10" fill="currentColor"/>
-      <rect x="35" y="5" width="30" height="10" fill="currentColor"/>
-      <rect x="42" y="50" width="16" height="18" fill="white" opacity="0.6"/>
-      <circle cx="50" cy="45" r="2" fill="white" opacity="0.8"/>
-    </svg>')
-  ),
-  tags$div(class = "bg-decoration atom-1",
-           HTML('<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="50" cy="50" r="6" fill="currentColor"/>
-      <ellipse cx="50" cy="50" rx="30" ry="15" fill="none" stroke="currentColor" stroke-width="2"/>
-      <ellipse cx="50" cy="50" rx="15" ry="30" fill="none" stroke="currentColor" stroke-width="2"/>
-      <ellipse cx="50" cy="50" rx="35" ry="8" fill="none" stroke="currentColor" stroke-width="2" transform="rotate(60 50 50)"/>
-    </svg>')
-  ),
-  
-  div(id = "main-content", class = "light-theme",
-      # Theme toggle button
-      action_button("themeToggle", "🌙 Dark Mode", class = "theme-toggle"),
-      
-      div(class = "ui container",
-          h1("Environmental Lab Data Analysis", class = "ui center aligned header"),
+        Shiny.addCustomMessageHandler('changeTheme', function(message) {
+          document.getElementById('main-content').className = message.theme;
+          document.body.className = message.theme;
+          document.getElementById('themeToggle').innerHTML = message.buttonText;
+        });
+      "))
+    ),
 
-          tabset(
-            # ---- Tab 1: Data entry + Stats ----
-            tabs = list(
-              list(
-                menu = "∑ Statistics",
-                content = div(
-                  class = "ui grid",
-                  div(
-                    class = "four wide column",
-                    segment(
-                      h3("🔢 Input Your Lab Data", class = "ui header"),
-                      tags$div(style = "background: rgba(116, 185, 255, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px;",
-                               tags$p("📝 Enter your environmental measurements below. Separate values with commas or spaces.",
-                                      style = "margin: 0; color: #74b9ff; font-weight: 500;")
-                      ),
-                      div(class = "ui form",
-                          # Dynamic group inputs will be rendered here
-                          uiOutput("dynamicGroups"),
-                          div(style = "margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(255, 255, 255, 0.1);",
-                              div(class = "ui grid",
-                                  div(class = "eight wide column",
-                                      action_button("addGroup", "Add Group", class = "ui secondary button fluid")
-                                  ),
-                                  div(class = "eight wide column",
-                                      action_button("calculate", "Calculate Statistics", class = "ui primary button fluid")
-                                  )
-                              )
-                          )
+    # Background decorations
+    tags$div(class = "bg-decoration beaker-1",
+             HTML('<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M30 20 L30 40 L20 70 L80 70 L70 40 L70 20 Z" fill="currentColor" stroke="currentColor" stroke-width="2"/>
+        <rect x="25" y="15" width="50" height="10" fill="currentColor"/>
+        <circle cx="35" cy="55" r="3" fill="white" opacity="0.6"/>
+        <circle cx="50" cy="60" r="2" fill="white" opacity="0.6"/>
+        <circle cx="65" cy="52" r="2.5" fill="white" opacity="0.6"/>
+      </svg>')
+    ),
+    tags$div(class = "bg-decoration microscope-1",
+             HTML('<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect x="20" y="80" width="60" height="10" fill="currentColor"/>
+        <rect x="45" y="30" width="10" height="50" fill="currentColor"/>
+        <circle cx="50" cy="25" r="15" fill="currentColor"/>
+        <circle cx="50" cy="25" r="8" fill="white" opacity="0.8"/>
+        <rect x="35" y="50" width="30" height="8" fill="currentColor"/>
+        <circle cx="30" cy="54" r="4" fill="currentColor"/>
+      </svg>')
+    ),
+    tags$div(class = "bg-decoration flask-1",
+             HTML('<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M35 10 L35 35 L15 70 L85 70 L65 35 L65 10 Z" fill="currentColor"/>
+        <rect x="30" y="5" width="40" height="10" fill="currentColor"/>
+        <rect x="47" y="0" width="6" height="15" fill="currentColor"/>
+        <path d="M25 50 Q50 45 75 50 Q60 55 50 60 Q40 55 25 50" fill="white" opacity="0.3"/>
+      </svg>')
+    ),
+    tags$div(class = "bg-decoration molecule-1",
+             HTML('<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="30" cy="30" r="8" fill="currentColor"/>
+        <circle cx="70" cy="30" r="8" fill="currentColor"/>
+        <circle cx="50" cy="60" r="8" fill="currentColor"/>
+        <circle cx="30" cy="80" r="8" fill="currentColor"/>
+        <line x1="38" y1="30" x2="62" y2="30" stroke="currentColor" stroke-width="3"/>
+        <line x1="35" y1="37" x2="45" y2="53" stroke="currentColor" stroke-width="3"/>
+        <line x1="65" y1="37" x2="55" y2="53" stroke="currentColor" stroke-width="3"/>
+        <line x1="45" y1="67" x2="35" y2="73" stroke="currentColor" stroke-width="3"/>
+      </svg>')
+    ),
+    tags$div(class = "bg-decoration test-tube-1",
+             HTML('<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect x="40" y="10" width="20" height="60" rx="10" fill="currentColor"/>
+        <rect x="35" y="5" width="30" height="10" fill="currentColor"/>
+        <rect x="42" y="50" width="16" height="18" fill="white" opacity="0.6"/>
+        <circle cx="50" cy="45" r="2" fill="white" opacity="0.8"/>
+      </svg>')
+    ),
+    tags$div(class = "bg-decoration atom-1",
+             HTML('<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="6" fill="currentColor"/>
+        <ellipse cx="50" cy="50" rx="30" ry="15" fill="none" stroke="currentColor" stroke-width="2"/>
+        <ellipse cx="50" cy="50" rx="15" ry="30" fill="none" stroke="currentColor" stroke-width="2"/>
+        <ellipse cx="50" cy="50" rx="35" ry="8" fill="none" stroke="currentColor" stroke-width="2" transform="rotate(60 50 50)"/>
+      </svg>')
+    ),
+
+    div(id = "main-content", class = "light-theme",
+        # Theme toggle button
+        action_button("themeToggle", "🌙", class = "theme-toggle"),
+
+        div(class = "ui container",
+            h1("Environmental Lab Data Analysis", class = "ui center aligned header"),
+
+            tabset(
+              # ---- Tab 1: Data entry + Stats ----
+              tabs = list(
+                list(
+                  menu = "∑ Statistics",
+                  content = div(
+                    class = "ui grid",
+                    div(
+                      class = "four wide column",
+                      segment(
+                        h3("Input Your Lab Data", class = "ui header"),
+                        tags$div(style = "background: rgba(116, 185, 255, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px;",
+                                 tags$p("Enter your environmental measurements below. Separate values with commas or spaces.",
+                                        style = "margin: 0; color: #74b9ff; font-weight: 500;")
+                        ),
+                        div(class = "ui form",
+                            # Dynamic group inputs will be rendered here
+                            uiOutput("dynamicGroups"),
+                            div(style = "margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(255, 255, 255, 0.1);",
+                                div(class = "ui grid",
+                                    div(class = "eight wide column",
+                                        action_button("addGroup", "Add Group", class = "ui secondary button fluid")
+                                    ),
+                                    div(class = "eight wide column",
+                                        action_button("calculate", "Calculate Statistics", class = "ui primary button fluid")
+                                    )
+                                )
+                            )
+                        )
                       )
-                    )
-                  ),
-                  div(
-                    class = "twelve wide column",
-                    segment(
-                      h3("📈 Statistical Results", class = "ui header"),
-                      tags$div(style = "background: rgba(116, 185, 255, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px;",
-                               tags$p("🎯 Your calculated statistics will appear here. These values help you understand your data's central tendency and variability!",
-                                      style = "margin: 0; color: #74b9ff; font-weight: 500;")
-                      ),
-                      div(style = "min-height: 500px;",
-                        uiOutput("statsTableWithTooltips")
+                    ),
+                    div(
+                      class = "twelve wide column",
+                      segment(
+                        h3("Statistical Results", class = "ui header"),
+                        tags$div(style = "background: rgba(116, 185, 255, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px;",
+                                 tags$p("Your calculated statistics will appear here. These values help you understand your data's central tendency and variability!",
+                                        style = "margin: 0; color: #74b9ff; font-weight: 500;")
+                        ),
+                        div(style = "min-height: 500px;",
+                          uiOutput("statsTableWithTooltips")
+                        )
                       )
                     )
                   )
-                )
-              ),
+                ),
 
-              # ---- Tab 2: Comparison Bar Plot ----
-              list(
-                menu = "📊 Group Comparison",
-                content = div(
-                  class = "ui grid",
-                  div(
-                    class = "four wide column",
-                    segment(
-                      h3("🎨 Plot Customization", class = "ui header"),
-                      tags$div(style = "background: rgba(116, 185, 255, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px;",
-                               tags$p("🖼️ Customize your comparison plot to make it perfect for your lab report!",
-                                      style = "margin: 0; color: #74b9ff; font-weight: 500;")
-                      ),
-                      div(class = "ui form",
-                          div(class = "field",
-                              tags$label("Main Title:"),
-                              text_input("mainTitle", value = "Environmental Measurements Comparison")
-                          ),
-                          div(class = "field",
-                              tags$label("X Axis Title:"),
-                              text_input("xTitle", value = "Measurement Type")
-                          ),
-                          div(class = "field",
-                              tags$label("Y Axis Title:"),
-                              text_input("yTitle", value = "Mean Value")
-                          )
+                # ---- Tab 2: Comparison Bar Plot ----
+                list(
+                  menu = "📊 Group Comparison",
+                  content = div(
+                    class = "ui grid",
+                    div(
+                      class = "four wide column",
+                      segment(
+                        h3("Plot Customization", class = "ui header"),
+                        tags$div(style = "background: rgba(116, 185, 255, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px;",
+                                 tags$p("Customize your comparison plot to make it perfect for your lab report!",
+                                        style = "margin: 0; color: #74b9ff; font-weight: 500;")
+                        ),
+                        div(class = "ui form",
+                            div(class = "field",
+                                tags$label("Main Title:"),
+                                text_input("mainTitle", value = "Environmental Measurements Comparison")
+                            ),
+                            div(class = "field",
+                                tags$label("X Axis Title:"),
+                                text_input("xTitle", value = "Measurement Type")
+                            ),
+                            div(class = "field",
+                                tags$label("Y Axis Title:"),
+                                text_input("yTitle", value = "Mean Value")
+                            )
+                        )
                       )
-                    )
-                  ),
-                  div(
-                    class = "twelve wide column",
-                    segment(
-                      h3("📊 Comparison Bar Plot with Error Bars", class = "ui header"),
-                      tags$div(style = "background: rgba(116, 185, 255, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px;",
-                               tags$p("📊 This plot shows the mean values for each group with error bars representing standard error. Error bars help you see the uncertainty in your measurements!",
-                                      style = "margin: 0; color: #74b9ff; font-weight: 500;")
-                      ),
-                      plotOutput("barPlot", height = "500px")
+                    ),
+                    div(
+                      class = "twelve wide column",
+                      segment(
+                        h3("Comparison Bar Plot with Error Bars", class = "ui header"),
+                        tags$div(style = "background: rgba(116, 185, 255, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px;",
+                                 tags$p("This plot shows the mean values for each group with error bars representing standard error. Error bars help you see the uncertainty in your measurements!",
+                                        style = "margin: 0; color: #74b9ff; font-weight: 500;")
+                        ),
+                        plotOutput("barPlot", height = "500px")
+                      )
                     )
                   )
-                )
-              ),
+                ),
 
-              # ---- Tab 3: Individual Group Plot ----
-              list(
-                menu = "🔍 Individual Analysis",
-                content = div(
-                  class = "ui grid",
-                  div(
-                    class = "four wide column",
-                    segment(
-                      h3("🎯 Group Selection", class = "ui header"),
-                      tags$div(style = "background: rgba(116, 185, 255, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px;",
-                               tags$p("🔍 Explore individual data points from any group to understand the distribution of your measurements!",
-                                      style = "margin: 0; color: #74b9ff; font-weight: 500;")
-                      ),
-                      div(class = "ui form",
-                          div(class = "field",
-                              tags$label("Select Group to Analyze:"),
-                              uiOutput("groupSelector")
-                          ),
-                          div(class = "field",
-                              tags$label("Plot Title:"),
-                              text_input("individualTitle", value = "Individual Measurements")
-                          ),
-                          div(class = "field",
-                              tags$label("X Axis Title:"),
-                              text_input("individualXTitle", value = "Observation Number")
-                          ),
-                          div(class = "field",
-                              tags$label("Y Axis Title:"),
-                              text_input("individualYTitle", value = "Measured Value")
-                          ),
-                          div(class = "field",
-                              tags$label("Visualization Type:"),
-                              dropdown_input("plotType",
-                                             choices = list(
-                                               "📊 Bar Chart" = "bar",
-                                               "📈 Line Plot" = "line",
-                                               "🎯 Scatter Plot" = "point"
-                                             ),
-                                             value = "bar"
-                              )
-                          )
+                # ---- Tab 3: Individual Group Plot ----
+                list(
+                  menu = "📉 Individual Analysis",
+                  content = div(
+                    class = "ui grid",
+                    div(
+                      class = "four wide column",
+                      segment(
+                        h3("Group Selection", class = "ui header"),
+                        tags$div(style = "background: rgba(116, 185, 255, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px;",
+                                 tags$p("Explore individual data points from any group to understand the distribution of your measurements!",
+                                        style = "margin: 0; color: #74b9ff; font-weight: 500;")
+                        ),
+                        div(class = "ui form",
+                            div(class = "field",
+                                tags$label("Select Group to Analyze:"),
+                                uiOutput("groupSelector")
+                            ),
+                            div(class = "field",
+                                tags$label("Plot Title:"),
+                                text_input("individualTitle", value = "Individual Measurements")
+                            ),
+                            div(class = "field",
+                                tags$label("X Axis Title:"),
+                                text_input("individualXTitle", value = "Observation Number")
+                            ),
+                            div(class = "field",
+                                tags$label("Y Axis Title:"),
+                                text_input("individualYTitle", value = "Measured Value")
+                            ),
+                            div(class = "field",
+                                tags$label("Visualization Type:"),
+                                dropdown_input("plotType",
+                                               choices = list(
+                                                 "Bar Chart" = "bar",
+                                                 "Line Plot" = "line",
+                                                 "Scatter Plot" = "point"
+                                               ),
+                                               value = "bar"
+                                )
+                            )
+                        )
                       )
-                    )
-                  ),
-                  div(
-                    class = "twelve wide column",
-                    segment(
-                      h3("📊 Individual Data Visualization", class = "ui header"),
-                      tags$div(style = "background: rgba(116, 185, 255, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px;",
-                               tags$p("This visualization shows each individual measurement from your selected group. Look for patterns, outliers, or trends in your data!",
-                                      style = "margin: 0; color: #74b9ff; font-weight: 500;")
-                      ),
-                      plotOutput("individualPlot", height = "500px")
+                    ),
+                    div(
+                      class = "twelve wide column",
+                      segment(
+                        h3("Individual Data Visualization", class = "ui header"),
+                        tags$div(style = "background: rgba(116, 185, 255, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px;",
+                                 tags$p("This visualization shows each individual measurement from your selected group. Look for patterns, outliers, or trends in your data!",
+                                        style = "margin: 0; color: #74b9ff; font-weight: 500;")
+                        ),
+                        plotOutput("individualPlot", height = "500px")
+                      )
                     )
                   )
                 )
               )
             )
-          )
-      ),
+        ),
 
-      # Footer - Simple text line
-      div(style = "text-align: center; margin-top: 20px; padding: 10px 0; font-size: 14px; color: rgba(255, 255, 255, 0.8);",
-          "Questions? Contact ",
-          tags$a(href = "https://shanptom.github.io",
-                 target = "_blank",
-                 "Developer.",
-                 style = "color: #74b9ff; text-decoration: none; font-weight: 500;")
-          
-      )
-  )
-)
+        # Footer - Simple text line
+        div(style = "text-align: center; margin-top: 20px; padding: 10px 0; font-size: 14px; color: rgba(255, 255, 255, 0.8);",
+            "Questions? Contact ",
+            tags$a(href = "https://shanptom.github.io",
+                   target = "_blank",
+                   "Developer.",
+                   style = "color: #74b9ff; text-decoration: none; font-weight: 500;")
+
+        )
+    )
+))
 
 # ---------- SERVER SECTION ----------
 server <- function(input, output, session) {
-  
+
   # ---- Theme Management ----
   # Reactive value to track current theme
   current_theme <- reactiveVal("light")
@@ -736,7 +733,7 @@ server <- function(input, output, session) {
       # Increment group count (this will trigger UI re-render)
       num_groups(current_num + 1)
     } else {
-      showNotification("⚠️ Maximum of 10 groups allowed!", type = "warning", duration = 3)
+      showNotification("Maximum of 10 groups allowed!", type = "warning", duration = 3)
     }
   })
 
@@ -775,24 +772,24 @@ server <- function(input, output, session) {
     })
     do.call(tagList, unlist(group_inputs, recursive = FALSE))
   })
-  
+
   # ---- Data Processing Functions ----
-  
+
   # Helper function: parse numeric vector from text (commas OR spaces)
   parse_vec <- function(txt) {
     if (is.null(txt) || txt == "" || nchar(trimws(txt)) == 0) return(numeric(0))
-    
+
     # Split by commas, spaces, or both
     vals <- unlist(strsplit(trimws(txt), "[,\\s]+"))
     vals <- vals[nzchar(vals)]  # Remove empty strings
-    
+
     # Convert to numeric and handle warnings
     numeric_vals <- suppressWarnings(as.numeric(vals))
-    
+
     # Return only valid numeric values
     numeric_vals[!is.na(numeric_vals)]
   }
-  
+
   # ---- Main Data Collection ----
 
   # Collect and validate groups when Calculate button is clicked
@@ -816,7 +813,7 @@ server <- function(input, output, session) {
     # Validation and user feedback
     if (group_count == 0) {
       showNotification(
-        "🚨 Please provide data for at least 1 group to analyze! Enter group name and measurements.",
+        "Please provide data for at least 1 group to analyze! Enter group name and measurements.",
         type = "error",
         duration = 5
       )
@@ -826,21 +823,21 @@ server <- function(input, output, session) {
     # Success notification with helpful info
     total_measurements <- sum(sapply(groups, length))
     showNotification(
-      paste0("✅ Success! Analyzed ", group_count, " group(s) with ", total_measurements, " total measurements."),
+      paste0("Success! Analyzed ", group_count, " group(s) with ", total_measurements, " total measurements."),
       type = "message",
       duration = 4
     )
 
     groups
   })
-  
+
   # ---- Statistical Calculations ----
-  
+
   # Compute comprehensive statistics for all groups
   stats <- reactive({
     req(data())
     groups <- data()
-    
+
     # Calculate statistics for each group
     stats_df <- data.frame(
       Group = names(groups),
@@ -856,13 +853,13 @@ server <- function(input, output, session) {
       Max = round(sapply(groups, max), 3),
       check.names = FALSE
     )
-    
-    # Add student-friendly emoji column names
-    colnames(stats_df) <- c("📊 Group", "📈 Mean", "📏 Std_Error", "📐 Std_Dev", "🔢 N", "⬇️ Min", "⬆️ Max")
-    
+
+    # Add descriptive column names
+    colnames(stats_df) <- c("Group", "Mean", "Std_Error", "Std_Dev", "N", "Min", "Max")
+
     stats_df
   })
-  
+
   # ---- UI Outputs ----
 
   # Render statistics table with tooltips on column headers
@@ -875,13 +872,13 @@ server <- function(input, output, session) {
       class = "ui table striped celled",
       tags$thead(
         tags$tr(
-          tags$th("📊 Group"),
-          tags$th(title = "Average value of all measurements in the group", "📈 Mean"),
-          tags$th(title = "Standard Error measures how much your sample mean might differ from the true population mean. Smaller values = more precise estimates!", "📏 Std_Error"),
-          tags$th(title = "Standard Deviation measures the spread of your data points around the mean. Larger values = more variability!", "📐 Std_Dev"),
-          tags$th(title = "N is your sample size - the number of measurements you took. Larger N generally gives more reliable results!", "🔢 N"),
-          tags$th("⬇️ Min"),
-          tags$th("⬆️ Max")
+          tags$th("Group"),
+          tags$th(title = "Average value of all measurements in the group", "Mean"),
+          tags$th(title = "Standard Error measures how much your sample mean might differ from the true population mean. Smaller values = more precise estimates!", "Std_Error"),
+          tags$th(title = "Standard Deviation measures the spread of your data points around the mean. Larger values = more variability!", "Std_Dev"),
+          tags$th(title = "N is your sample size - the number of measurements you took. Larger N generally gives more reliable results!", "N"),
+          tags$th("Min"),
+          tags$th("Max")
         )
       ),
       tags$tbody(
@@ -901,24 +898,24 @@ server <- function(input, output, session) {
 
     table_html
   })
-  
+
   # Generate dynamic group selector dropdown for individual analysis
   output$groupSelector <- renderUI({
     req(data())
     groups <- data()
-    
-    # Create choices with emoji prefixes for visual appeal
+
+    # Create choices without emoji prefixes
     choices <- as.list(names(groups))
-    names(choices) <- paste("🔬", names(groups))
-    
-    dropdown_input("selectedGroup", 
+    names(choices) <- names(groups)
+
+    dropdown_input("selectedGroup",
                    choices = choices,
                    value = names(groups)[1]
     )
   })
-  
+
   # ---- Plot Theme Management ----
-  
+
   # Get current theme colors for consistent plotting
   plot_theme_colors <- reactive({
     theme <- current_theme()
@@ -939,37 +936,34 @@ server <- function(input, output, session) {
       )
     }
   })
-  
+
   # ---- Group Comparison Plot ----
-  
+
   # Generate comparison bar plot with error bars
   output$barPlot <- renderPlot({
     req(stats())
     df <- stats()
     colors <- plot_theme_colors()
-    
-    # Clean group names for plotting (remove emojis)
-    df$Group_Clean <- gsub("📊 ", "", df$`📊 Group`)
-    
+
     # Create the main plot
-    p <- ggplot(df, aes(x = reorder(Group_Clean, `📈 Mean`), y = `📈 Mean`, fill = Group_Clean)) +
+    p <- ggplot(df, aes(x = reorder(Group, Mean), y = Mean, fill = Group)) +
       geom_bar(stat = "identity", alpha = 0.85, width = 0.7) +
       geom_errorbar(
-        aes(ymin = `📈 Mean` - `📏 Std_Error`, ymax = `📈 Mean` + `📏 Std_Error`),
+        aes(ymin = Mean - Std_Error, ymax = Mean + Std_Error),
         width = 0.25,
         color = colors$primary[5],  # Complementary color for error bars
         size = 1.2,
         alpha = 0.9
       ) +
-      
+
       # Customization based on user inputs
       labs(
-        title = input$mainTitle, 
-        y = input$yTitle, 
+        title = input$mainTitle,
+        y = input$yTitle,
         x = input$xTitle,
         caption = "Error bars represent Standard Error of the Mean"
       ) +
-      
+
       # Educational theme with clear axis lines
       theme_classic() +
       theme(
@@ -995,10 +989,10 @@ server <- function(input, output, session) {
 
       # Y-axis starts at zero for educational clarity
       scale_y_continuous(expand = expansion(mult = c(0, 0.15)), limits = c(0, NA))
-    
+
     p
   }, bg = "transparent")
-  
+
   # ---- Individual Group Analysis Plot ----
 
   # Generate individual group visualization
@@ -1084,7 +1078,7 @@ server <- function(input, output, session) {
 
     p
   }, bg = "transparent")
-  
+
   # ---- Additional Helper Functions ----
 
   # Data validation and quality checks - dynamic for current groups
@@ -1103,7 +1097,7 @@ server <- function(input, output, session) {
 
           if (length(parsed_data) < length(raw_vals)) {
             showNotification(
-              paste0("⚠️ Group ", i, ": Some values couldn't be parsed as numbers. Check for typos!"),
+              paste0("Group ", i, ": Some values couldn't be parsed as numbers. Check for typos!"),
               type = "warning",
               duration = 3
             )
