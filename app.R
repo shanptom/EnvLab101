@@ -26,7 +26,13 @@ ui <- semanticPage(
         position: relative;
         overflow-x: hidden;
         margin: 0 !important;
-        padding: 0 !important;
+        padding: 0 5px !important;
+      }
+
+      .ui.container {
+        width: 90% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
       }
 
       html {
@@ -88,7 +94,7 @@ ui <- semanticPage(
         margin-bottom: 0 !important;
         border-bottom: none !important;
         background: transparent !important;
-        padding: 0 20px !important;
+        padding: 0 10px !important;
       }
 
       .light-theme .ui.tabular.menu .item {
@@ -125,7 +131,10 @@ ui <- semanticPage(
         border-radius: 0 15px 15px 15px !important;
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
         margin-top: 0 !important;
+        padding: 20px !important;
         border-top-left-radius: 0 !important;
+        height: 675px;
+        overflow-y: auto;
       }
 
       .light-theme .ui.segment {
@@ -134,6 +143,8 @@ ui <- semanticPage(
         border: 1px solid rgba(247, 147, 30, 0.3) !important;
         border-radius: 20px !important;
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+        padding: 20px !important;
+        margin: 0 !important;
       }
 
       .light-theme .ui.button.primary {
@@ -198,7 +209,7 @@ ui <- semanticPage(
         margin-bottom: 0 !important;
         border-bottom: none !important;
         background: transparent !important;
-        padding: 0 20px !important;
+        padding: 0 10px !important;
       }
 
       .dark-theme .ui.tabular.menu .item {
@@ -236,7 +247,10 @@ ui <- semanticPage(
         border-radius: 0 15px 15px 15px !important;
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
         margin-top: 0 !important;
+        padding: 20px !important;
         border-top-left-radius: 0 !important;
+        height: 675px;
+        overflow-y: auto;
       }
 
       .dark-theme .ui.segment {
@@ -245,6 +259,8 @@ ui <- semanticPage(
         border: 1px solid rgba(80, 80, 80, 0.3) !important;
         border-radius: 20px !important;
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
+        padding: 20px !important;
+        margin: 0 !important;
       }
 
       .dark-theme .ui.button.primary {
@@ -330,8 +346,18 @@ ui <- semanticPage(
         min-height: 80px;
       }
 
+      .ui.grid {
+        margin: 0 !important;
+      }
+
+      .ui.grid > .column {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+      }
+
       .ui.table {
-        margin-top: 20px;
+        margin-top: 10px !important;
+        margin-bottom: 0 !important;
         border-radius: 15px !important;
         overflow: hidden;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -521,8 +547,8 @@ ui <- semanticPage(
                     div(
                       class = "four wide column",
                       segment(
-                        h3("Input Your Lab Data", class = "ui header"),
-                        tags$div(style = "background: rgba(116, 185, 255, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px;",
+                        h3("Input Your Lab Data", class = "ui header", style = "margin-top: 0 !important; margin-bottom: 10px !important;"),
+                        tags$div(style = "background: rgba(116, 185, 255, 0.1); padding: 10px; border-radius: 10px; margin-bottom: 15px;",
                                  tags$p("Enter your environmental measurements below. Separate values with commas or spaces.",
                                         style = "margin: 0; color: #74b9ff; font-weight: 500;")
                         ),
@@ -545,12 +571,12 @@ ui <- semanticPage(
                     div(
                       class = "twelve wide column",
                       segment(
-                        h3("Statistical Results", class = "ui header"),
-                        tags$div(style = "background: rgba(116, 185, 255, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px;",
+                        h3("Statistical Results", class = "ui header", style = "margin-top: 0 !important; margin-bottom: 10px !important;"),
+                        tags$div(style = "background: rgba(116, 185, 255, 0.1); padding: 10px; border-radius: 10px; margin-bottom: 15px;",
                                  tags$p("Your calculated statistics will appear here. These values help you understand your data's central tendency and variability!",
                                         style = "margin: 0; color: #74b9ff; font-weight: 500;")
                         ),
-                        div(style = "min-height: 500px;",
+                        div(style = "min-height: 600px;",
                           uiOutput("statsTableWithTooltips")
                         )
                       )
@@ -566,8 +592,8 @@ ui <- semanticPage(
                     div(
                       class = "four wide column",
                       segment(
-                        h3("Plot Customization", class = "ui header"),
-                        tags$div(style = "background: rgba(116, 185, 255, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px;",
+                        h3("Plot Customization", class = "ui header", style = "margin-top: 0 !important; margin-bottom: 10px !important;"),
+                        tags$div(style = "background: rgba(116, 185, 255, 0.1); padding: 10px; border-radius: 10px; margin-bottom: 15px;",
                                  tags$p("Customize your comparison plot to make it perfect for your lab report!",
                                         style = "margin: 0; color: #74b9ff; font-weight: 500;")
                         ),
@@ -590,12 +616,12 @@ ui <- semanticPage(
                     div(
                       class = "twelve wide column",
                       segment(
-                        h3("Comparison Bar Plot with Error Bars", class = "ui header"),
-                        tags$div(style = "background: rgba(116, 185, 255, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px;",
+                        h3("Comparison Bar Plot with Error Bars", class = "ui header", style = "margin-top: 0 !important; margin-bottom: 10px !important;"),
+                        tags$div(style = "background: rgba(116, 185, 255, 0.1); padding: 10px; border-radius: 10px; margin-bottom: 15px;",
                                  tags$p("This plot shows the mean values for each group with error bars representing standard error. Error bars help you see the uncertainty in your measurements!",
                                         style = "margin: 0; color: #74b9ff; font-weight: 500;")
                         ),
-                        plotOutput("barPlot", height = "500px")
+                        plotOutput("barPlot", height = "600px")
                       )
                     )
                   )
@@ -609,8 +635,8 @@ ui <- semanticPage(
                     div(
                       class = "four wide column",
                       segment(
-                        h3("Group Selection", class = "ui header"),
-                        tags$div(style = "background: rgba(116, 185, 255, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px;",
+                        h3("Group Selection", class = "ui header", style = "margin-top: 0 !important; margin-bottom: 10px !important;"),
+                        tags$div(style = "background: rgba(116, 185, 255, 0.1); padding: 10px; border-radius: 10px; margin-bottom: 15px;",
                                  tags$p("Explore individual data points from any group to understand the distribution of your measurements!",
                                         style = "margin: 0; color: #74b9ff; font-weight: 500;")
                         ),
@@ -648,12 +674,12 @@ ui <- semanticPage(
                     div(
                       class = "twelve wide column",
                       segment(
-                        h3("Individual Data Visualization", class = "ui header"),
-                        tags$div(style = "background: rgba(116, 185, 255, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px;",
+                        h3("Individual Data Visualization", class = "ui header", style = "margin-top: 0 !important; margin-bottom: 10px !important;"),
+                        tags$div(style = "background: rgba(116, 185, 255, 0.1); padding: 10px; border-radius: 10px; margin-bottom: 15px;",
                                  tags$p("This visualization shows each individual measurement from your selected group. Look for patterns, outliers, or trends in your data!",
                                         style = "margin: 0; color: #74b9ff; font-weight: 500;")
                         ),
-                        plotOutput("individualPlot", height = "500px")
+                        plotOutput("individualPlot", height = "600px")
                       )
                     )
                   )
@@ -663,7 +689,7 @@ ui <- semanticPage(
         ),
 
         # Footer - Simple text line
-        div(style = "text-align: center; margin-top: 20px; padding: 10px 0; font-size: 14px; color: rgba(255, 255, 255, 0.8);",
+        div(style = "text-align: center; margin-top: 10px; padding: 8px 0; font-size: 14px; color: rgba(255, 255, 255, 0.8);",
             "Questions? Contact ",
             tags$a(href = "https://shanptom.github.io",
                    target = "_blank",
